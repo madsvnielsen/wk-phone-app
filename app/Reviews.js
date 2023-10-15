@@ -11,12 +11,17 @@ import { LinearGradient } from 'expo-linear-gradient';
 import StatisticCard from "../components/StatisticCard";
 import CurrentLevelSubjects from "../components/CurrentLevelSubjects";
 import LevelUpIndicator from "../components/LevelUpIndicator";
+import SubjectBanner from "../components/SubjectBanner";
+import ReviewInputLabel from "../components/ReviewInputLabel";
+import ReviewInput from "../components/ReviewInput";
 
 
 export default function ReviewScreen() {
     return (
-            <LinearGradient colors={['#242424', '#283045']} style={styles.container}>
-                <Text style={styles.usernameText}>Reviews</Text>
+            <LinearGradient colors={[ '#172959', '#242424']} style={styles.container}>
+            <SubjectBanner characters={"恋愛"} type={"vocab"}/>
+            <ReviewInputLabel type={"vocabulary"} meaning={false}/>
+            <ReviewInput meaning={false}/>
             </LinearGradient>
 
     );
@@ -34,9 +39,6 @@ const styles = StyleSheet.create({
       flexDirection:"row"
     },
     container: {
-        paddingTop: 50,
-        paddingBottom: 50,
-        paddingHorizontal: 20,
         height: "100%",
 
 

@@ -65,7 +65,7 @@ export default function OverviewScreen({navigation}) {
 
     }, []);
     return (
-            <LinearGradient colors={['#242424', '#283045']} style={styles.container}>
+            <LinearGradient colors={[ '#172959', '#242424']} style={styles.container}>
                 <Text style={styles.usernameText}>{username}</Text>
                 <View style={styles.statisticsContainer}>
                     <StatisticCard colorOne={"#DF37A7"} colorTwo={"#B42E87"} number={lessonCount} label={"Lessons"} onPress={() => {navigation.navigate("Lessons")}}/>

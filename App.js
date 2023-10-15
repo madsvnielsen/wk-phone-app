@@ -28,7 +28,7 @@ const Stack = createNativeStackNavigator();
           <NavigationContainer>
               <Stack.Navigator initialRouteName="Overview" screenOptions={{
                   headerStyle: {
-                      backgroundColor: '#ab3597',
+                      backgroundColor: '#172959',
                   },
                   headerTitleStyle:{
                       color:'white',

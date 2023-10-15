@@ -14,14 +14,6 @@ export default function SrsLevelIndicator(props) {
     );
 }
 
-const getGradientFromType = (type) =>{
-
-    if(type=== "radical"){
-        return["#00AAFF","#0676AD"]
-    }
-    return["#DF37A7", "#B42E87"]
-
-}
 
 const styles = StyleSheet.create({
     indicatorContainer:{
