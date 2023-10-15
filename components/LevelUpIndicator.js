@@ -15,7 +15,7 @@ export default function LevelUpIndicator(props) {
         <LinearGradient colors={["#9d9d9d","#c5c5c5"]} style={styles.indicatorContainer}>
             <LinearGradient colors={["#f100a1","#86005a"]} style={[styles.indicatorBar, {width: percentage.toString() + "%"}]}>
             </LinearGradient>
-            <Text style={styles.indicatorText}>  {kanjiPassed} of {kanjiRequired} passed</Text>
+            <Text style={styles.indicatorText}>  {kanjiPassed} of {kanjiRequired} kanji passed</Text>
         </LinearGradient>
 
     );

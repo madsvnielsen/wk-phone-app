@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     subjectContainer: {
         flexDirection: "row",
         flew: 1,
-        justifyContent: "flex-start",
+        justifyContent: "space-evenly",
         alignItems: "flex-start",
         flexWrap: "wrap",
         width:"100%",

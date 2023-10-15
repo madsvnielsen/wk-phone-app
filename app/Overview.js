@@ -12,16 +12,9 @@ import StatisticCard from "../components/StatisticCard";
 import CurrentLevelSubjects from "../components/CurrentLevelSubjects";
 import LevelUpIndicator from "../components/LevelUpIndicator";
 
-class OverviewBadge extends Component {
-    render() {
-        return <View style={styles.statisticsContainer}>
-            <StatisticCard colorOne={"#DF37A7"} colorTwo={"#B42E87"} number={this.props.number} label={"Lessons"} />
-            <StatisticCard colorOne={"#00AAFF"} colorTwo={"#0676AD"} number={this.props.number1} label={"Reviews"}/>
-        </View>;
-    }
-}
 
-export default function ReviewScreen() {
+
+export default function OverviewScreen({navigation}) {
 
     const [lessonCount, setLessonCount] = useState(0);
     const [reviewCount, setReviewCount] = useState(0);
@@ -74,10 +67,16 @@ export default function ReviewScreen() {
     return (
             <LinearGradient colors={['#242424', '#283045']} style={styles.container}>
                 <Text style={styles.usernameText}>{username}</Text>
-                <OverviewBadge number={lessonCount} number1={reviewCount}/>
+                <View style={styles.statisticsContainer}>
+                    <StatisticCard colorOne={"#DF37A7"} colorTwo={"#B42E87"} number={lessonCount} label={"Lessons"} onPress={() => {navigation.navigate("Lessons")}}/>
+                    <StatisticCard colorOne={"#00AAFF"} colorTwo={"#0676AD"} number={reviewCount} label={"Reviews"} onPress={() => {navigation.navigate("Reviews")}}/>
+                </View>
                 <Text style={styles.levelText}>Level {level}</Text>
-                <CurrentLevelSubjects currentSubjects={currentLevelSubjects}/>
-                <LevelUpIndicator currentSubjects={currentLevelSubjects}/>
+                <View style={{flex:3}}>
+                    <CurrentLevelSubjects currentSubjects={currentLevelSubjects}/>
+                    <LevelUpIndicator currentSubjects={currentLevelSubjects}/>
+                </View>
+
             </LinearGradient>
 
 
@@ -85,34 +84,34 @@ export default function ReviewScreen() {
 }
 
 const styles = StyleSheet.create({
-    flexBox:{
-        flex : 1,
-        justifyContent: "flex-end",
-        flexDirection:"column"
-    },
     statisticsContainer:{
       flex:1,
       justifyContent: "space-evenly",
-      flexDirection:"row"
+      flexDirection:"row",
+    marginBottom: 20,
     },
     container: {
         paddingTop: 50,
         paddingBottom: 50,
         paddingHorizontal: 20,
-       height: "100%"
+        flex:1,
+        flexDirection:"column",
 
     },
     usernameText:{
         color: "white",
         fontSize: 30,
         margin: 5,
-        width: "100%"
+        width: "100%",
+        fontWeight: "100",
+
     },
     levelText:{
         color: "white",
         fontSize: 20,
-        margin: 5,
-        width: "100%"
+        marginHorizontal: 5,
+        marginTop: 40,
+        width: "100%",
     }
 });
 

@@ -26,15 +26,16 @@ const getGradientFromType = (type, srsLevel) =>{
 
 const styles = StyleSheet.create({
     subjectCard:{
-        height: 30,
-        width: 30,
+        height: 35,
+        width: 35,
         margin: 2,
         borderRadius: 2,
         padding:2,
     },
     subjectText:{
         color:"white",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 15
     }
 
 });

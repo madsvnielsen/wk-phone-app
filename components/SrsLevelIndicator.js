@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-evenly",
-        marginTop:3
+        marginTop:4
     },
     indicatorCell:{
-        height: 2,
-        width:4,
+        height: 3,
+        width:5,
 
     },
     startCell:{
