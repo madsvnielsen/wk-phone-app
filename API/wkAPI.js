@@ -17,9 +17,11 @@ export const getSummary = async () => {
 
         );
         const json = await response.json();
+        const lessonCount = json.data.lessons[0].subject_ids.length
+        const reviewCount = json.data.reviews[0].subject_ids.length
         return {
-            lessonCount: json.data.lessons[0].subject_ids.length,
-            reviewCount: json.data.reviews[0].subject_ids.length,
+            lessonCount: lessonCount,
+            reviewCount: reviewCount,
             reviewsAvailable: json.data.next_reviews_at,
             lessons: json.data.lessons[0].subject_ids,
             reviews: json.data.reviews[0].subject_ids,
@@ -78,6 +80,54 @@ export const getCurrentLevelAssignments = async (level) => {
             assignments: json.data,
 
         };
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+export const getAllAssignments = async () => {
+
+    try {
+        const visitPage = async (page) =>{
+            const response = await fetch(
+                page,
+                {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token,
+                    }
+                }
+
+            );
+
+            return await response.json();
+        }
+
+        let nextPage = apiURL +"/assignments"
+        let assignments = []
+
+        while(nextPage !== null){
+            let json = await visitPage(nextPage);
+            nextPage = null
+            if(json.pages.next_url !== null){
+                nextPage = json.pages.next_url
+
+            }
+            assignments = [...assignments, ...json.data]
+        }
+
+
+        return {assignments: assignments}
+
+
+
+
+
+
+
     } catch (error) {
         console.error(error);
     }
