@@ -1,21 +1,25 @@
 import {Dimensions, SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import {useState} from "react";
+import {toKana, isRomaji, toHiragana} from 'wanakana';
 
 
 
 
 export default function ReviewInput(props) {
-    const [answer, onChangeAnswer] = useState('');
+    const [answer, setAnswer] = useState('');
 
+    const inputToKana = (e)=> {
+        setAnswer(toHiragana(e, {IMEMode : true}))
+    }
     return(
         <SafeAreaView>
-
                 <TextInput
                     style={styles.input}
                     placeholder={props.meaning ? "Meaning" : "答え"}
                     value={answer}
-                    onChangeText={onChangeAnswer}
+                    onChangeText={props.meaning ? setAnswer : inputToKana}
+                    onSubmitEditing={props.onDone}
                 >
 
                 </TextInput>

@@ -23,8 +23,8 @@ export const getSummary = async () => {
             lessonCount: lessonCount,
             reviewCount: reviewCount,
             reviewsAvailable: json.data.next_reviews_at,
-            lessons: json.data.lessons[0].subject_ids,
-            reviews: json.data.reviews[0].subject_ids,
+            lessons: json.data.lessons,
+            reviews: json.data.reviews,
 
         };
     } catch (error) {
@@ -165,3 +165,37 @@ export const getSubjectsInformation = async (level) => {
         console.error(error);
     }
 };
+
+export const getSubjectsInformationByID = async (ids) => {
+    try {
+        const response = await fetch(
+            apiURL + `/subjects?ids=${ids}`,
+            {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token,
+                }
+            }
+
+        );
+        const json = await response.json();
+        const outJSON = []
+        json.data.map((subject) =>{
+            outJSON.push(
+                {
+                    type: subject.object,
+                    characters: subject.data.characters,
+                    meanings: subject.data.meanings,
+                    readings:subject.data.readings,
+                    id: subject.id
+                }
+            )
+        })
+        return outJSON
+    } catch (error) {
+        console.error(error);
+    }
+};
+

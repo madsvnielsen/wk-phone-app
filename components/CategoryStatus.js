@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         flexWrap: "wrap",
         width:"100%",
-        marginHorizontal:"auto"
+        marginHorizontal:"auto",
+
 
 
     },
@@ -59,7 +60,8 @@ const styles = StyleSheet.create({
         height: 75,
         width:100,
         marginVertical: 5,
-        marginRight: 10
+        marginRight: 10,
+        borderRadius: 5
     },
     numberText: {
         color: "white",
