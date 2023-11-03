@@ -5,7 +5,7 @@ import {LinearGradient} from "expo-linear-gradient";
 
 export default function ReviewInputLabel(props) {
     return(
-        <LinearGradient style={styles.bannerContainer} colors={['#313131', 'black']}>
+        <LinearGradient style={styles.bannerContainer} colors={props.meaning ? ['#484848', '#262626'] : ['#313131', 'black']}>
             <Text style={styles.bannerText}
 
             >{props.type === "kanji" ? "Kanji" : props.type === "radical" ? "Radical" : "Vocabulary"} {props.meaning ? "meaning" : "reading"}</Text>

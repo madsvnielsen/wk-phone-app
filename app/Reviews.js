@@ -17,34 +17,58 @@ import ReviewInput from "../components/ReviewInput";
 import {useFocusEffect} from "@react-navigation/native";
 
 
-export default function ReviewScreen() {
+export default function ReviewScreen({navigation}) {
 
     const [reviewCount, setReviewCount] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [currentSubject, setCurrentSubject] = useState(null);
     const [askReading, setAskReading] = useState(false)
     const [initialized, setInitialized] = useState(false)
+    const [answer, setAnswer] = useState('');
 
 
 
     const nextReviewItem = (queue) => {
         console.log("Next review item!");
         const unfinishedReviews = queue.filter(review => !review.readingComplete || !review.meaningComplete);
-        console.log(unfinishedReviews)
         if(unfinishedReviews.length === 0){
             //All reviews complete
+            setReviews(queue)
+            navigation.navigate("Overview")
             return;
         }
 
+
         const randomIndex = Math.floor(Math.random() * unfinishedReviews.length);
-        setCurrentSubject(queue[randomIndex])
-        console.log(queue[randomIndex])
-        if(Math.random() > 0.5 && !queue[randomIndex].readingComplete){
+        setCurrentSubject(unfinishedReviews[randomIndex])
+        if(Math.random() > 0.5 && !unfinishedReviews[randomIndex].readingComplete){
             setAskReading(true)
         }else {
-            setAskReading(queue[randomIndex].meaningComplete)
+            setAskReading(unfinishedReviews[randomIndex].meaningComplete)
         }
 
+    }
+    const answerReview = (e) =>{
+        console.log(e)
+        const tempArray = reviews;
+        const currentItemIndex = tempArray.findIndex((review) => review.subject.id === currentSubject.subject.id)
+        const acceptedReadings = currentSubject.subject.readings.filter(ans => ans.accepted_answer).map(ans => ans.reading.toLowerCase())
+        const acceptedMeanings = currentSubject.subject.meanings.filter(ans => ans.accepted_answer).map(ans => ans.meaning.toLowerCase())
+        let answerCorrect = askReading ? acceptedReadings.includes(e.toLowerCase()) : acceptedMeanings.includes(e.toLowerCase())
+        console.log(acceptedReadings)
+        console.log(acceptedMeanings)
+        if(answerCorrect){
+            if(askReading){
+                tempArray[currentItemIndex].readingComplete = true;
+            } else {
+                tempArray[currentItemIndex].meaningComplete = true;
+            }
+            console.log("Correct!")
+
+        }
+        setAnswer("")
+        setReviews(tempArray);
+        nextReviewItem(tempArray)
     }
 
 
@@ -98,9 +122,9 @@ export default function ReviewScreen() {
 
     return (
             <LinearGradient colors={['#172959', '#242424']} style={styles.container}>
-                <SubjectBanner characters={currentSubject.subject.characters} type={currentSubject.subject.type}/>
+                <SubjectBanner characters={currentSubject.subject.characters} type={currentSubject.subject.type} reviewQueue ={reviews}/>
                 <ReviewInputLabel type={currentSubject.subject.type} meaning={!askReading}/>
-                <ReviewInput meaning={!askReading} onDone={() => {nextReviewItem(reviews)}}/>
+                <ReviewInput meaning={!askReading} onDone={(e) => {answerReview(e)}} answer={answer} setAnswer={setAnswer}/>
             </LinearGradient>
 
     );

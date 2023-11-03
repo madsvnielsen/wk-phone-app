@@ -7,19 +7,19 @@ import {toKana, isRomaji, toHiragana} from 'wanakana';
 
 
 export default function ReviewInput(props) {
-    const [answer, setAnswer] = useState('');
+
 
     const inputToKana = (e)=> {
-        setAnswer(toHiragana(e, {IMEMode : true}))
+        props.setAnswer(toHiragana(e, {IMEMode : true}))
     }
     return(
         <SafeAreaView>
                 <TextInput
                     style={styles.input}
-                    placeholder={props.meaning ? "Meaning" : "答え"}
-                    value={answer}
-                    onChangeText={props.meaning ? setAnswer : inputToKana}
-                    onSubmitEditing={props.onDone}
+                    placeholder={props.meaning ? "Meaning..." : "答え..."}
+                    value={props.answer}
+                    onChangeText={props.meaning ? props.setAnswer : inputToKana}
+                    onSubmitEditing={() => {props.onDone(props.answer)}}
                 >
 
                 </TextInput>

@@ -4,8 +4,11 @@ import {LinearGradient} from "expo-linear-gradient";
 
 
 export default function SubjectBanner(props) {
+    const solvedReviews = props.reviewQueue.filter(review => review.meaningComplete && review.readingComplete).length
+    const totalReviews = props.reviewQueue.length
     return(
         <LinearGradient style={styles.bannerContainer} colors={getGradientFromType(props.type)}>
+            <Text style={{textAlign: "right", color: "white", padding: 2, fontWeight: "bold"}}>{solvedReviews + "/" + totalReviews}</Text>
             <Text style={styles.bannerText}
                   adjustsFontSizeToFit={true}
             >{props.characters}</Text>
